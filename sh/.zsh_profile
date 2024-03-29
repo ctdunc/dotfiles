@@ -1,0 +1,33 @@
+source $HOME/.profile
+
+autoload -U colors && colors
+
+autoload -U compinit
+zstyle ':completion:*' menu select
+zmodload zsh/complist
+compinit -d $HOME/.cache/zsh/zcompdump
+_comp_options+=(globdots)
+bindkey -v
+export KEYTIMEOUT=1
+
+# vim selection
+bindkey -M menuselect 'h' vi-backward-char
+bindkey -M menuselect 'k' vi-up-line-or-history
+bindkey -M menuselect 'l' vi-forward-char
+bindkey -M menuselect 'j' vi-down-line-or-history
+bindkey -v '^?' backward-delete-char
+
+# ctrl + f launches tmux sessionizer
+bindkey -s ^f "$HOME/.local/bin/tmux-sessionizer.sh\n"
+
+# steal oh my zsh "clean" theme
+if [ $UID -eq 0 ]; then NCOLOR="red"; else NCOLOR="white"; fi
+
+PROMPT='%{$fg[$NCOLOR]%}%B%n%b%{$reset_color%}:%{$fg[blue]%}%B%c/%b%{$reset_color%} $(git_prompt_info)%(!.#.$) '
+RPROMPT='[%*]'
+
+# git theming
+ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg_bold[blue]%}(%{$fg_no_bold[yellow]%}%B"
+ZSH_THEME_GIT_PROMPT_SUFFIX="%b%{$fg_bold[blue]%})%{$reset_color%} "
+ZSH_THEME_GIT_PROMPT_CLEAN=""
+ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg_bold[red]%}✗"
