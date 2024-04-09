@@ -595,7 +595,8 @@ require("lazy").setup({
 			--  nvim-cmp does not ship with all sources by default. They are split
 			--  into multiple repos for maintenance purposes.
 			"hrsh7th/cmp-nvim-lsp",
-			"hrsh7th/cmp-path",
+			-- TODO reenable this after adding ability to ignore network directories
+			-- "hrsh7th/cmp-path",
 		},
 		config = function()
 			-- See `:help cmp`

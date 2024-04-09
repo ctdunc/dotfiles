@@ -10,3 +10,4 @@ alias ls='ls -lsrth --color'
 alias tlmgr='tllocalmgr'
 alias df='df -h'
 alias z="zathura --config-dir=$HOME/.local/config/ --fork > /dev/null"
+. "$HOME/.cargo/env"
