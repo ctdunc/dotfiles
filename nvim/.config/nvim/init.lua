@@ -136,6 +136,7 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
 	-- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
 	"tpope/vim-sleuth", -- Detect tabstop and shiftwidth automatically
+	"tpope/vim-fugitive",
 	"tshirtman/vim-cython",
 	-- NOTE: Plugins can also be added by using a table,
 	-- with the first argument being the link and the following
@@ -462,14 +463,16 @@ require("lazy").setup({
 			--  - settings (table): Override the default settings passed when initializing the server.
 			--        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
 			local servers = {
-				-- clangd = {},
+				clangd = {},
 				-- gopls = {},
-				pyright = {
+				basedpyright = {
 					settings = {
-						pyright = {
+						basedpyright = {
 							disableOrganizeImports = true,
-							disableTaggedHints = true,
-							diagnosticMode = "worskpace",
+							analysis = {
+								diagnosticMode = "workspace",
+								typeCheckingMode = "standard",
+							},
 						},
 					},
 				},
@@ -729,6 +732,7 @@ require("lazy").setup({
 				"toml",
 				"tmux",
 				"ssh_config",
+				"sql",
 			},
 			-- Autoinstall languages that are not installed
 			auto_install = true,
@@ -780,3 +784,4 @@ require("lazy").setup({
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
 vim.cmd([[colorscheme gruvbox]])
+-- vim.lsp.inlay_hint.enable(0, true)

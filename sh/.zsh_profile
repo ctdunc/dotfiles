@@ -1,4 +1,5 @@
 source $HOME/.profile
+unsetopt BEEP
 #eval $(keychain --eval id_rsa id_ed25519)
 autoload -U colors && colors
 
