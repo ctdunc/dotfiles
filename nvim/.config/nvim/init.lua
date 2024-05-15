@@ -1,7 +1,6 @@
 vim.opt.softtabstop = 4
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
-vim.o.background = "dark" -- or "light" for light mode. See EOF for gruvbox cmd
 vim.cmd([[ set nofoldenable]])
 
 vim.wo.wrap = false
@@ -99,19 +98,14 @@ vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagn
 -- vim.keymap.set('n', '<up>', '<cmd>echo "Use k to move!!"<CR>')
 -- vim.keymap.set('n', '<down>', '<cmd>echo "Use j to move!!"<CR>')
 
--- [[ Basic Autocommands ]]
---  See `:help lua-guide-autocommands`
-
--- Highlight when yanking (copying) text
---  Try it with `yap` in normal mode
---  See `:help vim.highlight.on_yank()`
---vim.api.nvim_create_autocmd('TextYankPost', {
---  desc = 'Highlight when yanking (copying) text',
---  group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
---  callback = function()
---    vim.highlight.on_yank()
---  end,
---})
+vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+	pattern = { "*.tex" },
+	command = "!latexmk  -pdflatex <afile> &>/dev/null",
+})
+vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+	pattern = { "*.rs" },
+	command = "!rustfmt <afile>",
+})
 
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
@@ -146,23 +140,6 @@ require("lazy").setup({
 	--
 	--  This is equivalent to:
 	--    require('Comment').setup({})
-	{
-		"christoomey/vim-tmux-navigator",
-		cmd = {
-			"TmuxNavigateLeft",
-			"TmuxNavigateDown",
-			"TmuxNavigateUp",
-			"TmuxNavigateRight",
-			"TmuxNavigatePrevious",
-		},
-		keys = {
-			{ "<c-h>", "<cmd><C-U>TmuxNavigateLeft<cr>" },
-			{ "<c-j>", "<cmd><C-U>TmuxNavigateDown<cr>" },
-			{ "<c-k>", "<cmd><C-U>TmuxNavigateUp<cr>" },
-			{ "<c-l>", "<cmd><C-U>TmuxNavigateRight<cr>" },
-			{ "<c-\\>", "<cmd><C-U>TmuxNavigatePrevious<cr>" },
-		},
-	},
 	{
 		"ellisonleao/gruvbox.nvim",
 		priority = 1000,
@@ -201,47 +178,6 @@ require("lazy").setup({
 			},
 		},
 	},
-
-	-- NOTE: Plugins can also be configured to run Lua code when they are loaded.
-	--
-	-- This is often very useful to both group configuration, as well as handle
-	-- lazy loading plugins that don't need to be loaded immediately at startup.
-	--
-	-- For example, in the following configuration, we use:
-	--  event = 'VimEnter'
-	--
-	-- which loads which-key before all the UI elements are loaded. Events can be
-	-- normal autocommands events (`:help autocmd-events`).
-	--
-	-- Then, because we use the `config` key, the configuration only runs
-	-- after the plugin has been loaded:
-	--  config = function() ... end
-
-	--[[ { -- Useful plugin to show you pending keybinds.
-      'folke/which-key.nvim',
-      event = 'VimEnter', -- Sets the loading event to 'VimEnter'
-      config = function() -- This is the function that runs, AFTER loading
-        require('which-key').setup()
-
-        -- Document existing key chains
-        require('which-key').register {
-          ['<leader>c'] = { name = '[C]ode', _ = 'which_key_ignore' },
-          ['<leader>d'] = { name = '[D]ocument', _ = 'which_key_ignore' },
-          ['<leader>r'] = { name = '[R]ename', _ = 'which_key_ignore' },
-          ['<leader>s'] = { name = '[S]earch', _ = 'which_key_ignore' },
-          ['<leader>w'] = { name = '[W]orkspace', _ = 'which_key_ignore' },
-        }
-      end,
-    },
-    ]]
-
-	-- NOTE: Plugins can specify dependencies.
-	--
-	-- The dependencies are proper plugin specifications as well - anything
-	-- you do for a plugin at the top level, you can do for a dependency.
-	--
-	-- Use the `dependencies` key to specify the dependencies of a particular plugin
-
 	{ -- Fuzzy Finder (files, lsp, etc)
 		"nvim-telescope/telescope.nvim",
 		event = "VimEnter",
@@ -262,42 +198,10 @@ require("lazy").setup({
 				end,
 			},
 			{ "nvim-telescope/telescope-ui-select.nvim" },
-
-			-- Useful for getting pretty icons, but requires a Nerd Font.
-			-- { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
 		},
 		config = function()
-			-- Telescope is a fuzzy finder that comes with a lot of different things that
-			-- it can fuzzy find! It's more than just a "file finder", it can search
-			-- many different aspects of Neovim, your workspace, LSP, and more!
-			--
-			-- The easiest way to use Telescope, is to start by doing something like:
-			--  :Telescope help_tags
-			--
-			-- After running this command, a window will open up and you're able to
-			-- type in the prompt window. You'll see a list of `help_tags` options and
-			-- a corresponding preview of the help.
-			--
-			-- Two important keymaps to use while in Telescope are:
-			--  - Insert mode: <c-/>
-			--  - Normal mode: ?
-			--
-			-- This opens a window that shows you all of the keymaps for the current
-			-- Telescope picker. This is really useful to discover what Telescope can
-			-- do as well as how to actually do it!
-
-			-- [[ Configure Telescope ]]
 			-- See `:help telescope` and `:help telescope.setup()`
 			require("telescope").setup({
-				-- You can put your default mappings / updates / etc. in here
-				--  All the info you're looking for is in `:help telescope.setup()`
-				--
-				-- defaults = {
-				--   mappings = {
-				--     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
-				--   },
-				-- },
-				-- pickers = {}
 				extensions = {
 					["ui-select"] = {
 						require("telescope.themes").get_dropdown(),
@@ -321,33 +225,8 @@ require("lazy").setup({
 			vim.keymap.set("n", "<leader>sr", builtin.resume, { desc = "[S]earch [R]esume" })
 			vim.keymap.set("n", "<leader>s.", builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
 			vim.keymap.set("n", "<leader><leader>", builtin.buffers, { desc = "[ ] Find existing buffers" })
-
-			--[[ Slightly advanced example of overriding default behavior and theme
-            vim.keymap.set("n", "<leader>/", function()
-              -- You can pass additional configuration to Telescope to change the theme, layout, etc.
-              builtin.current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
-                winblend = 10,
-                previewer = false,
-              }))
-            end, { desc = "[/] Fuzzily search in current buffer" })
-            ]]
-
-			-- It's also possible to pass additional configuration options.
-			--  See `:help telescope.builtin.live_grep()` for information about particular keys
-			vim.keymap.set("n", "<leader>s/", function()
-				builtin.live_grep({
-					grep_open_files = true,
-					prompt_title = "Live Grep in Open Files",
-				})
-			end, { desc = "[S]earch [/] in Open Files" })
-
-			-- Shortcut for searching your Neovim configuration files
-			vim.keymap.set("n", "<leader>sn", function()
-				builtin.find_files({ cwd = vim.fn.stdpath("config") })
-			end, { desc = "[S]earch [N]eovim files" })
 		end,
 	},
-
 	{ -- LSP Configuration & Plugins
 		"neovim/nvim-lspconfig",
 		dependencies = {
@@ -677,7 +556,6 @@ require("lazy").setup({
 		dependencies = { "nvim-lua/plenary.nvim" },
 		opts = { signs = false },
 	},
-
 	{ -- Collection of various small independent plugins/modules
 		"echasnovski/mini.nvim",
 		config = function()
@@ -687,6 +565,12 @@ require("lazy").setup({
 			--  - va)  - [V]isually select [A]round [)]paren
 			--  - yinq - [Y]ank [I]nside [N]ext [']quote
 			--  - ci'  - [C]hange [I]nside [']quote
+			require("mini.ai").setup({ n_lines = 500 })
+		end,
+	},
+	{
+		"echasnovski/mini.nvim",
+		config = function()
 			require("mini.ai").setup({ n_lines = 500 })
 
 			-- Add/delete/replace surroundings (brackets, quotes, etc.)
@@ -710,9 +594,6 @@ require("lazy").setup({
 			statusline.section_location = function()
 				return "%2l:%-2v"
 			end
-
-			-- ... and there is more!
-			--  Check out: https://github.com/echasnovski/mini.nvim
 		end,
 	},
 	{ -- Highlight, edit, and navigate code
@@ -744,6 +625,35 @@ require("lazy").setup({
 				additional_vim_regex_highlighting = { "ruby" },
 			},
 			indent = { enable = true, disable = { "ruby" } },
+		},
+		config = function(_, opts)
+			-- [[ Configure Treesitter ]] See `:help nvim-treesitter`
+		end,
+	},
+	{ -- Highlight, edit, and navigate code
+		"nvim-treesitter/nvim-treesitter",
+		build = ":TSUpdate",
+		opts = {
+			ensure_installed = {
+				"bash",
+				"c",
+				"html",
+				"markdown",
+				"vim",
+				"vimdoc",
+				"python",
+				"rust",
+				"javascript",
+				"toml",
+				"tmux",
+				"ssh_config",
+			},
+			-- Autoinstall languages that are not installed
+			auto_install = true,
+			highlight = {
+				enable = true,
+			},
+			indent = { enable = true },
 		},
 		config = function(_, opts)
 			-- [[ Configure Treesitter ]] See `:help nvim-treesitter`
