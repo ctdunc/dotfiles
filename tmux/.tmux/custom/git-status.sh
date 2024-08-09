@@ -1,5 +1,5 @@
 #!/bin/sh
-
+echo "hi"
 PANE_PATH=$(tmux display-message -p -F "#{pane_current_path}")
 cd $PANE_PATH
 
