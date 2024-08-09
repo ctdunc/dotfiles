@@ -1,6 +1,6 @@
 #!/bin/sh
 
-cd $(tmux display-message -p -F "#{pane_current_path}")
+PANE_PATH=$(tmux display-message -p -F "#{pane_current_path}")
 cd $PANE_PATH
 
 git_changes() {
