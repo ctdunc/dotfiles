@@ -1,0 +1,2 @@
+dwmbar.sh &
+exec dwm

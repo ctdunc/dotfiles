@@ -4,7 +4,7 @@ export PYTHONSTARTUP=$HOME/.local/config/sh/pythonrc.py
 export HTOPRC=$HOME/.local/config/htop/htoprc
 
 export TERM="xterm-256color"
-export PATH=$PATH:~/bin
+export PATH=$PATH:~/.local/bin
 alias vim='nvim'
 alias ls='ls -lsrth --color'
 alias tlmgr='tllocalmgr'
