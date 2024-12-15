@@ -18,13 +18,19 @@ function dwmbar_battery () {
 	printf "\n"
 }
 
+function dwmbar_backlight () {
+	# depends on acpilight https://wiki.archlinux.org/title/Backlight
+	# TODO test this with multiple monitors
+	PCT_BRIGHTNESS=$(xbacklight -ctrl amdgpu_bl2 -get)
+	printf "%s 󰳲" "$PCT_BRIGHTNESS"
+}
+
 SEP1="  "
-SEPLEFT=""
 while true
 do
-	dispstr="$(dwmbar_battery)"
+	dispstr="$(dwmbar_backlight)"
+	dispstr="$dispstr$SEP1$(dwmbar_battery)"
 	dispstr="$dispstr$SEP1$(dwmbar_date)"
 	xsetroot -name "$dispstr"
-
-	sleep 10
+	sleep 2
 done

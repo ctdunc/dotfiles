@@ -41,6 +41,7 @@ static const Rule rules[] = {
 	{ "Signal",	NULL,       NULL,       1 << 6,       0,           -1 },
 	{ "Mail",	NULL,       NULL,       1 << 6,       0,           -1 },
 	{ "thunderbird",NULL,       NULL,       1 << 6,       0,           -1 },
+	{ "discord ",	NULL,       NULL,       1 << 6,       0,           -1 },
 };
 
 /* layout(s) */
@@ -70,18 +71,28 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
+// dmenu commands
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
+static const char *passmenucmd[] = { "passmenu", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { "st", NULL };
+static const char *termcmd_sessionized[]  = { "st", "-e", "tmux-sessionizer.sh", NULL };
 static const char *lockcmd[] = {"slock", NULL };
 static const char *volcmd[] = {"st", "-e", "alsamixer",	NULL};
 static const char *screenshotcmd[] = {"maim", "-s", ">", "$(date +%F%H).jpg", NULL};
+
+// brightness -- requires acpilight.
+static const char *brightnessdowncmd[] = {"xbacklight" , "-ctrl", "amdgpu_bl2", "-dec", "5", NULL};
+static const char *brightnessupcmd[] = {"xbacklight" , "-ctrl", "amdgpu_bl2", "-inc", "5", NULL};
+static const char *brightnesssetcmd[] = { "dmenubrightness.sh", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_d,      spawn,          {.v = dmenucmd } },
 	{ MODKEY,			XK_v,	   spawn,          {.v = volcmd } },
-	{ MODKEY,			XK_Return, spawn,          {.v = termcmd } },
+	{ MODKEY,			XK_Return, spawn,          {.v = termcmd_sessionized } },
+	{ MODKEY|ShiftMask,		XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY|ShiftMask,		XK_z,	   spawn,	   {.v = lockcmd } },
-	{ MODKEY,			XK_s,      spawn,	   {.v = screenshotcmd} },
+	{ MODKEY|ShiftMask,		XK_s,      spawn,	   {.v = screenshotcmd} },
+	{ MODKEY,			XK_p,      spawn,	   {.v = passmenucmd } },
 	{ MODKEY,                       XK_space,  togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
@@ -104,6 +115,9 @@ static Key keys[] = {
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
+	{ MODKEY,			XK_b,	   spawn, {.v = brightnessdowncmd } },
+	{ MODKEY|ShiftMask,		XK_b,	   spawn, {.v = brightnessupcmd } },
+	{ MODKEY|ControlMask,		XK_b,	   spawn, {.v = brightnesssetcmd } },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
