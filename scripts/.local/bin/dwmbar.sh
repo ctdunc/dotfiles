@@ -1,10 +1,9 @@
 function dwmbar_date () {
-	DATE=$(date "+%R %D")
+	DATE=$(date "+%R %Z %D")
 	printf "%s\n" "$DATE"
 }
 
 function dwmbar_battery () {
-	# Change BAT1 to whatever your battery is identified as. Typically BAT0 or BAT1
 	CHARGE=$(cat /sys/class/power_supply/BAT1/capacity)
 	STATUS=$(cat /sys/class/power_supply/BAT1/status)
 
@@ -25,10 +24,22 @@ function dwmbar_backlight () {
 	printf "%s 󰳲" "$PCT_BRIGHTNESS"
 }
 
+function dwmbar_wifi_status () { 
+	# TODO test this with failing connection, captive portal logins. What are the possible statuses?
+	WIFI_STATUS=$(wpa_cli status | grep '^id_str' | cut --delimiter='=' --fields 2)
+	if [ -z $WIFI_STATUS ]; then
+		WIFI_SYMBOL="󱛅"
+	else
+		WIFI_SYMBOL="󰖩"
+	fi
+	printf "%s %s" "$WIFI_STATUS" "$WIFI_SYMBOL"
+}
+
 SEP1="  "
 while true
 do
-	dispstr="$(dwmbar_backlight)"
+	dispstr="$(dwmbar_wifi_status)"
+	dispstr="$dispstr$SEP1$(dwmbar_backlight)"
 	dispstr="$dispstr$SEP1$(dwmbar_battery)"
 	dispstr="$dispstr$SEP1$(dwmbar_date)"
 	xsetroot -name "$dispstr"
