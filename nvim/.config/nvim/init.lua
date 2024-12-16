@@ -1,4 +1,6 @@
+vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
+vim.opt.shiftwidth = 4
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 vim.cmd([[ set nofoldenable]])
