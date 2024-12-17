@@ -84,6 +84,8 @@ static const char *screenshotcmd[] = {"maim", "-s", ">", "$(date +%F%H).jpg", NU
 static const char *brightnessdowncmd[] = {"xbacklight" , "-ctrl", "amdgpu_bl2", "-dec", "5", NULL};
 static const char *brightnessupcmd[] = {"xbacklight" , "-ctrl", "amdgpu_bl2", "-inc", "5", NULL};
 static const char *brightnesssetcmd[] = { "dmenubrightness.sh", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
+static const char *btconnectcmd[] = { "dmenubtconnect.sh", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
+static const char *btdisconnectcmd[] = { "dmenubtdisconnect.sh", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_d,      spawn,          {.v = dmenucmd } },
@@ -118,6 +120,8 @@ static Key keys[] = {
 	{ MODKEY,			XK_b,	   spawn, {.v = brightnessdowncmd } },
 	{ MODKEY|ShiftMask,		XK_b,	   spawn, {.v = brightnessupcmd } },
 	{ MODKEY|ControlMask,		XK_b,	   spawn, {.v = brightnesssetcmd } },
+	{ MODKEY,			XK_o,	   spawn, {.v = btconnectcmd} },
+	{ MODKEY|ShiftMask,		XK_o,	   spawn, {.v = btdisconnectcmd} },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)

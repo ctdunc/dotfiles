@@ -35,10 +35,24 @@ function dwmbar_wifi_status () {
 	printf "%s %s" "$WIFI_STATUS" "$WIFI_SYMBOL"
 }
 
+function dwmbar_bluetooth_audio () {
+	for DEVICE in $(bluetoothctl devices Connected | cut -d' ' -f2);
+	do 
+		# here's a complete list of possibilities
+		DEVICE_IS_AUDIO=$(bluetoothctl info $DEVICE | grep '^\s*Icon: audio')
+		if ! [[ -z $DEVICE_IS_AUDIO ]]; then
+			DEVICE_NAME=$(bluetoothctl info $DEVICE | grep '^\s*Name' | cut -d' ' -f2)
+			printf "%s 󰗾" "$DEVICE_NAME"
+			exit 0
+		fi
+	done
+	printf "󰗿"
+}
 SEP1="  "
 while true
 do
 	dispstr="$(dwmbar_wifi_status)"
+	dispstr="$dispstr$SEP1$(dwmbar_bluetooth_audio)"
 	dispstr="$dispstr$SEP1$(dwmbar_backlight)"
 	dispstr="$dispstr$SEP1$(dwmbar_battery)"
 	dispstr="$dispstr$SEP1$(dwmbar_date)"
