@@ -1,3 +1,20 @@
+local function split_lines(value)
+  value = string.gsub(value, "&nbsp;", " ")
+  value = string.gsub(value, "&gt;", ">")
+  value = string.gsub(value, "&lt;", "<")
+  -- value = string.gsub(value, "\\", "")
+  -- value = string.gsub(value, "```python", "")
+  -- value = string.gsub(value, "```", "")
+  return value
+end
+local function undo_pyright_nonsense(_, result, ctx, config)
+  -- force not to use markdown
+  if not (result and result.contents and (type(result.contents) == "table")) then
+    return vim.lsp.handlers.hover(_, result, ctx, config)
+  end
+  result.contents.value = split_lines(result.contents.value)
+  return vim.lsp.handlers.hover(_, result, ctx, config)
+end
 return {
   { -- LSP Configuration & Plugins
     "neovim/nvim-lspconfig",
@@ -112,7 +129,14 @@ return {
       local servers = {
         clangd = {},
         -- gopls = {},
+        --
         pyright = {
+          handlers = {
+            ["textDocument/hover"] = vim.lsp.with(
+              undo_pyright_nonsense,
+              { border = "rounded", syntax = "markdown", wrap = false }
+            ),
+          },
           settings = {
             pyright = {
               disableOrganizeImports = true,
@@ -120,13 +144,12 @@ return {
                 diagnosticMode = "workspace",
                 typeCheckingMode = "standard",
               },
+              disableLanguageServices = true,
             },
           },
         },
         ruff = {
-          capabilities = {
-            hoverProvider = false,
-          },
+          capabilities = { hoverProvider = false },
         },
         rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
@@ -165,7 +188,7 @@ return {
       -- You can add other tools here that you want Mason to install
       -- for you, so that they are available from within Neovim.
       local ensure_installed = vim.tbl_keys(servers or {})
-      require("mason-tool-installer").setup({ ensure_installed = { "stylua" } })
+      require("mason-tool-installer").setup({ ensure_installed = { "stylua", "mypy" } })
       require("mason-lspconfig").setup({
         ensure_installed = ensure_installed,
         handlers = {
