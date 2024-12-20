@@ -38,7 +38,9 @@ function dwmbar_wifi_status () {
 function dwmbar_bluetooth_audio () {
 	for DEVICE in $(bluetoothctl devices Connected | cut -d' ' -f2);
 	do 
-		# here's a complete list of possibilities
+		# TODO clean this up and handle other audio output devices? 
+		# Is there a nice way to tell what the output device is/whether it's 
+		# bluetooth or what?
 		DEVICE_IS_AUDIO=$(bluetoothctl info $DEVICE | grep '^\s*Icon: audio')
 		if ! [[ -z $DEVICE_IS_AUDIO ]]; then
 			DEVICE_NAME=$(bluetoothctl info $DEVICE | grep '^\s*Name' | cut -d' ' -f2)

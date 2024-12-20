@@ -16,6 +16,6 @@ static const int failonclear = 1;
 /*Set blur radius*/
 static const int blurRadius=10;
 /*Enable Pixelation*/
-//#define PIXELATION
+#define PIXELATION
 /*Set pixelation radius*/
-static const int pixelSize=1;
+static const int pixelSize=5;
