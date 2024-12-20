@@ -12,3 +12,4 @@ alias df='df -h'
 alias z="zathura --config-dir=$HOME/.local/config/ --fork > /dev/null"
 . "$HOME/.cargo/env"
 alias wslvpn="wsl.exe -d wsl-vpnkit --cd /app service wsl-vpnkit start"
+
