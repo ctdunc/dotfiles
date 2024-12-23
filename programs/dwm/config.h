@@ -42,6 +42,7 @@ static const Rule rules[] = {
 	{ "Mail",	NULL,       NULL,       1 << 6,       0,           -1 },
 	{ "thunderbird",NULL,       NULL,       1 << 6,       0,           -1 },
 	{ "discord ",	NULL,       NULL,       1 << 6,       0,           -1 },
+	{ "Discord ",	NULL,       NULL,       1 << 6,       0,           -1 },
 };
 
 /* layout(s) */
