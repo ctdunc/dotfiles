@@ -3,4 +3,4 @@ stow --target=$HOME sh
 stow --target=$HOME tmux 
 stow --target=$HOME scripts
 stow --target=$HOME dunst
-stow --target=$HOME telekasten
+stow --target=$HOME brain

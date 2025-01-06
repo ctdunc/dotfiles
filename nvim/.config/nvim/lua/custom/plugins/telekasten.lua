@@ -15,7 +15,6 @@ return {
     vim.keymap.set("n", "<leader>ngd", "<cmd>Telekasten find_daily_notes<CR>")
     vim.keymap.set("n", "<leader>ngw", "<cmd>Telekasten find_weekly_notes<CR>")
     vim.keymap.set("n", "<leader>ngg", "<cmd>Telekasten find_notes<CR>")
-    vim.keymap.set("n", "<leader>ntt", "<cmd>Telekasten toggle_todo<CR>")
 
     vim.keymap.set("n", "gd", "<cmd>Telekasten follow_link<CR>")
   end,

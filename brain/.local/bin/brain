@@ -1,0 +1,17 @@
+#!/bin/zsh
+BRAIN_STORE="$HOME/notes"
+args=$(getopt --options 't' --longoptions 'todo' -- "${@}") || exit
+eval "set -- ${args}"
+case "${1}" in
+	(-t | --todo)
+		nvim $BRAIN_STORE/TODO.md
+	;;
+	(*)
+		if [[ $n -eq 0 ]]; then
+			nvim -c "Telekasten find_notes"
+		else 
+			exit 1
+		fi
+		((n++))
+	;;
+esac
