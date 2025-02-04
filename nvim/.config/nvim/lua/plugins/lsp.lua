@@ -102,7 +102,7 @@ return {
       local servers = {
         clangd = {},
         -- gopls = {},
-        pyright = {
+        --[[pyright = {
           settings = {
             pyright = {
               disableOrganizeImports = true,
@@ -112,21 +112,13 @@ return {
               },
             },
           },
-        },
-        ruff = {
+        },--]]
+        --[[ruff = {
           capabilities = {
             hoverProvider = false,
           },
-        },
+        },--]]
         rust_analyzer = { diagnostics = { { styleLints = { enable = true } } } },
-        -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
-        --
-        -- Some languages (like typescript) have entire language plugins that can be useful:
-        --    https://github.com/pmizio/typescript-tools.nvim
-        --
-        -- But for many setups, the LSP (`tsserver`) will work just fine
-        -- tsserver = {},
-        --
 
         lua_ls = {
           -- cmd = {...},
@@ -142,6 +134,7 @@ return {
             },
           },
         },
+        ts_ls = {},
       }
 
       -- Ensure the servers and tools above are installed

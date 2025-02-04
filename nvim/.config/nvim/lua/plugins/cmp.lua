@@ -37,6 +37,7 @@ return {
       "hrsh7th/cmp-nvim-lsp",
       -- TODO reenable this after adding ability to ignore network directories
       -- "hrsh7th/cmp-path",
+      "hrsh7th/cmp-nvim-lsp-signature-help",
     },
     config = function()
       -- See `:help cmp`
@@ -102,6 +103,7 @@ return {
           --    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
         }),
         sources = {
+          { name = "otter" },
           { name = "nvim_lsp" },
           -- { name = "luasnip" },
           { name = "path" },
