@@ -1,3 +1,4 @@
 return {
-  "ctdunc/nvim-dash",
+  dir = "~/code/nvim-dash",
+  -- "ctdunc/nvim-dash",
 }
