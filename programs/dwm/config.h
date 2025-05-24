@@ -72,6 +72,7 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
+
 // dmenu commands
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *passmenucmd[] = { "passmenu", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
@@ -79,7 +80,8 @@ static const char *termcmd[]  = { "st", NULL };
 static const char *termcmd_sessionized[]  = { "st", "-e", "tmux-sessionizer.sh", NULL };
 static const char *lockcmd[] = {"slock", NULL };
 static const char *volcmd[] = {"st", "-e", "alsamixer",	NULL};
-static const char *screenshotcmd[] = {"maim", "-s", ">", "$(date +%F%H).jpg", NULL};
+static const char *namedscreenshotcmd[] = {"namedscreenshot.sh", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
+static const char *clipscreenshotcmd[] = {"clipscreenshot.sh", NULL } ;
 
 // brightness -- requires acpilight.
 static const char *brightnessdowncmd[] = {"xbacklight" , "-ctrl", "amdgpu_bl2", "-dec", "5", NULL};
@@ -94,7 +96,8 @@ static Key keys[] = {
 	{ MODKEY,			XK_Return, spawn,          {.v = termcmd_sessionized } },
 	{ MODKEY|ShiftMask,		XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY|ShiftMask,		XK_z,	   spawn,	   {.v = lockcmd } },
-	{ MODKEY|ShiftMask,		XK_s,      spawn,	   {.v = screenshotcmd} },
+	{ MODKEY|ShiftMask,		XK_s,      spawn,	   {.v = namedscreenshotcmd} },
+	{ MODKEY,				XK_s,      spawn,	   {.v = clipscreenshotcmd} },
 	{ MODKEY,			XK_p,      spawn,	   {.v = passmenucmd } },
 	{ MODKEY,                       XK_space,  togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
