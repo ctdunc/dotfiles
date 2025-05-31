@@ -8,3 +8,5 @@ tmux/.tmux/plugins/
 programs/dwm/dwm
 programs/st/st
 programs/slock/slock
+
+no-track/

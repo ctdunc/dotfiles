@@ -1,9 +1,9 @@
-function dwmbar_date () {
+function dwmbar_date {
 	DATE=$(date "+%R %Z %D")
 	printf "%s\n" "$DATE"
 }
 
-function dwmbar_battery () {
+function dwmbar_battery {
 	CHARGE=$(cat /sys/class/power_supply/BAT1/capacity)
 	STATUS=$(cat /sys/class/power_supply/BAT1/status)
 
@@ -17,14 +17,14 @@ function dwmbar_battery () {
 	printf "\n"
 }
 
-function dwmbar_backlight () {
+function dwmbar_backlight {
 	# depends on acpilight https://wiki.archlinux.org/title/Backlight
 	# TODO test this with multiple monitors
 	PCT_BRIGHTNESS=$(xbacklight -ctrl amdgpu_bl2 -get)
 	printf "%s 󰳲" "$PCT_BRIGHTNESS"
 }
 
-function dwmbar_wifi_status () { 
+function dwmbar_wifi_status { 
 	# TODO test this with failing connection, captive portal logins. What are the possible statuses?
 	WIFI_STATUS=$(wpa_cli status | grep '^id_str' | cut --delimiter='=' --fields 2)
 	if [ -z $WIFI_STATUS ]; then
@@ -35,7 +35,7 @@ function dwmbar_wifi_status () {
 	printf "%s %s" "$WIFI_STATUS" "$WIFI_SYMBOL"
 }
 
-function dwmbar_bluetooth_audio () {
+function dwmbar_bluetooth_audio {
 	for DEVICE in $(bluetoothctl devices Connected | cut -d' ' -f2);
 	do 
 		# TODO clean this up and handle other audio output devices? 
@@ -50,10 +50,22 @@ function dwmbar_bluetooth_audio () {
 	done
 	printf "󰗿"
 }
+
+function dwmbar_weather {
+	JSON=$(cat ~/.cache/weather/current.json)
+	if ! [[ -z $JSON ]]; then
+		WEATHER_SYMBOL=$(grep "^$(echo $JSON | jq '.weather[0].id')" ~/.local/bin/icons.txt | cut -f4 -d'	')
+		echo "$(echo $JSON | jq '(((.main.temp -273.15) * 1.8) + 32) * 100 | round / 100')$WEATHER_SYMBOL"
+	else
+		printf "no weather found"
+	fi
+}
+
 SEP1="  "
 while true
 do
-	dispstr="$(dwmbar_wifi_status)"
+	dispstr="$(dwmbar_weather)"
+	dispstr="$dispstr$SEP1$(dwmbar_wifi_status)"
 	dispstr="$dispstr$SEP1$(dwmbar_bluetooth_audio)"
 	dispstr="$dispstr$SEP1$(dwmbar_backlight)"
 	dispstr="$dispstr$SEP1$(dwmbar_battery)"
