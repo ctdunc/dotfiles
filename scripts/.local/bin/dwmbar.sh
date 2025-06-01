@@ -8,11 +8,11 @@ function dwmbar_battery {
 	STATUS=$(cat /sys/class/power_supply/BAT1/status)
 
 	if [ "$STATUS" = "Charging" ]; then
-	    printf "󰂄 %s%%" "$CHARGE"
+	    printf "%s%%󰂄" "$CHARGE"
 	elif [ "$STATUS" = "Discharging" ]; then
-	    printf "󱧥 %s%%" "$CHARGE"
+	    printf "%s%%󱧥" "$CHARGE"
 	else
-	    printf "󱟢 %s%%" "$CHARGE"
+	    printf "%s%%󱟢" "$CHARGE"
 	fi
 	printf "\n"
 }
@@ -21,7 +21,7 @@ function dwmbar_backlight {
 	# depends on acpilight https://wiki.archlinux.org/title/Backlight
 	# TODO test this with multiple monitors
 	PCT_BRIGHTNESS=$(xbacklight -ctrl amdgpu_bl2 -get)
-	printf "%s 󰳲" "$PCT_BRIGHTNESS"
+	printf "%s󰳲" "$PCT_BRIGHTNESS"
 }
 
 function dwmbar_wifi_status { 
@@ -32,7 +32,7 @@ function dwmbar_wifi_status {
 	else
 		WIFI_SYMBOL="󰖩"
 	fi
-	printf "%s %s" "$WIFI_STATUS" "$WIFI_SYMBOL"
+	printf "%s%s" "$WIFI_STATUS" "$WIFI_SYMBOL"
 }
 
 function dwmbar_bluetooth_audio {
@@ -55,7 +55,8 @@ function dwmbar_weather {
 	JSON=$(cat ~/.cache/weather/current.json)
 	if ! [[ -z $JSON ]]; then
 		WEATHER_SYMBOL=$(grep "^$(echo $JSON | jq '.weather[0].id')" ~/.local/bin/icons.txt | cut -f4 -d'	')
-		echo "$(echo $JSON | jq '(((.main.temp -273.15) * 1.8) + 32) * 100 | round / 100')$WEATHER_SYMBOL"
+		LOCATION_SYMBOL=$(cat ~/.cache/weather/current_symbol)
+		echo "$(echo $JSON | jq '(((.main.temp -273.15) * 1.8) + 32) | round')$WEATHER_SYMBOL @$LOCATION_SYMBOL"
 	else
 		printf "no weather found"
 	fi
