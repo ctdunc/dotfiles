@@ -102,7 +102,7 @@ return {
       local servers = {
         clangd = {},
         -- gopls = {},
-        --[[pyright = {
+        pyright = {
           settings = {
             pyright = {
               disableOrganizeImports = true,
@@ -112,12 +112,12 @@ return {
               },
             },
           },
-        },--]]
-        --[[ruff = {
+        },
+        ruff = {
           capabilities = {
             hoverProvider = false,
           },
-        },--]]
+        },
         rust_analyzer = { diagnostics = { { styleLints = { enable = true } } } },
 
         lua_ls = {
