@@ -38,6 +38,13 @@ return {
       -- TODO reenable this after adding ability to ignore network directories
       -- "hrsh7th/cmp-path",
       "hrsh7th/cmp-nvim-lsp-signature-help",
+      --[[{
+        "zbirenbaum/copilot-cmp",
+        after = { "copilot.lua" },
+        config = function()
+          require("copilot_cmp").setup()
+        end,
+      },--]]
     },
     config = function()
       -- See `:help cmp`
@@ -107,6 +114,7 @@ return {
           { name = "nvim_lsp" },
           -- { name = "luasnip" },
           { name = "path" },
+          --{ name = "copilot" },
         },
       })
       cmp.setup.filetype({ "sql" }, {

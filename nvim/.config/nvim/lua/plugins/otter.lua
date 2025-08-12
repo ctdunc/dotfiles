@@ -1,6 +1,6 @@
 return {
-  -- "jmbuhr/otter.nvim",
-  dir = "~/code/otter.nvim",
+  "jmbuhr/otter.nvim",
+  -- dir = "~/code/otter.nvim",
   dependencies = { "nvim-treesitter/nvim-treesitter" },
   opts = {
     buffers = {

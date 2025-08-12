@@ -38,6 +38,8 @@ else
 	ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg_bold[red]%}✗"
 fi
 # this has to go here, not .profile, since the prompt overrides it otherwise.
-if [[ -d ./env ]]; then
+if [[ -d ./.venv ]]; then
+	source ./.venv/bin/activate
+elif [[ -d ./env ]]; then
 	source ./env/bin/activate
 fi

@@ -13,6 +13,22 @@ return {
       { "j-hui/fidget.nvim", opts = {} },
 
       { "folke/neodev.nvim", opts = {} },
+      --[[ {
+        "zbirenbaum/copilot.lua",
+        cmd = "Copilot",
+        event = "InsertEnter",
+        config = function()
+          require("copilot").setup({
+            suggestion = { enabled = false },
+            panel = { enabled = false },
+            server_opts_overrides = {
+              settings = {
+                advanced = { debug = { acceptSelfSignedCertificate = true } },
+              },
+            },
+          })
+        end,
+      },--]]
     },
     config = function()
       vim.api.nvim_create_autocmd("LspAttach", {
@@ -64,7 +80,7 @@ return {
           map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
 
           -- The following two autocommands are used to highlight references of the
-          -- word under your cursor when your cursor rests there for a little while.
+          -- word under your cursor when your cursor rests
           --    See `:help CursorHold` for information about when this is executed
           --
           -- When you move your cursor, the highlights will be cleared (the second autocommand).
