@@ -82,6 +82,7 @@ static const char *volcmd[] = {"st", "-e", "alsamixer",	NULL};
 static const char *namedscreenshotcmd[] = {"namedscreenshot.sh", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *clipscreenshotcmd[] = {"clipscreenshot.sh", NULL } ;
 static const char *setweathercmd[] = {"set-weather-location.sh", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
+static const char *screenkeycmd[] = {"screenkey.sh", "--bg-color", col_gray1, "--font-color",col_gray3,"--no-systray","-t1","-g","90%x40%+5%-1", NULL};
 
 // brightness -- requires acpilight.
 static const char *brightnessdowncmd[] = {"xbacklight" , "-ctrl", "amdgpu_bl2", "-dec", "5", NULL};
@@ -106,6 +107,7 @@ static Key keys[] = {
 	{ MODKEY|ControlMask,			XK_b,	   spawn,		   {.v = brightnesssetcmd } },
 	{ MODKEY,						XK_o,	   spawn,		   {.v = btconnectcmd} },
 	{ MODKEY|ShiftMask,				XK_o,	   spawn,		   {.v = btdisconnectcmd} },
+	{ MODKEY|ControlMask,			XK_k,	   spawn,		   {.v = screenkeycmd} },
 	{ MODKEY,                       XK_space,  togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
