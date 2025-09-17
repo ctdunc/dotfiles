@@ -129,6 +129,7 @@ return {
             },
           },
         },
+        -- ty = {},
         ruff = {
           capabilities = {
             hoverProvider = false,

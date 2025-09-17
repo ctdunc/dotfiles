@@ -87,6 +87,11 @@ vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next [D]iagn
 vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { desc = "Show diagnostic [E]rror messages" })
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
 
+-- git keymaps
+vim.keymap.set("n", "<leader>gb", ":Git blame<CR>", { desc = "Show [g]it [b]lame" })
+vim.keymap.set("n", "<leader>gd", ":Git difftool<CR>", { desc = "Show [g]it [d]ifftool" })
+vim.keymap.set("n", "<leader>gm", ":Git mergetool<CR>", { desc = "Show [g]it [m]ergetool" })
+
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.uv.fs_stat(lazypath) then
   vim.fn.system({
