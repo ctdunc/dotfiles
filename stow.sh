@@ -6,5 +6,6 @@ stow --target=$HOME dunst
 stow --target=$HOME brain
 stow --target=$HOME gtk-gruv
 stow --target=$HOME neomutt
+stow --target=$HOME systemd
 # stow no-track, environment variables I don't want version controlled.
 stow --target=$HOME no-track

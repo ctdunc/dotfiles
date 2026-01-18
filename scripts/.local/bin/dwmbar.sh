@@ -35,8 +35,7 @@ function dwmbar_wifi_status {
 	printf "%s%s" "$WIFI_STATUS" "$WIFI_SYMBOL"
 }
 
-function dwmbar_bluetooth_audio {
-	for DEVICE in $(bluetoothctl devices Connected | cut -d' ' -f2);
+function dwmbar_bluetooth_audio { for DEVICE in $(bluetoothctl devices Connected | cut -d' ' -f2);
 	do 
 		# TODO clean this up and handle other audio output devices? 
 		# Is there a nice way to tell what the output device is/whether it's 
@@ -51,8 +50,9 @@ function dwmbar_bluetooth_audio {
 	printf "󰗿"
 }
 
-function dwmbar_weather {
-	JSON=$(cat ~/.cache/weather/current.json)
+function dwmbar_weather_current {
+	LOCATION=$(cat ~/.cache/weather/current_location)
+	JSON=$(cat ~/.cache/weather/$LOCATION.json)
 	if ! [[ -z $JSON ]]; then
 		WEATHER_SYMBOL=$(grep "^$(echo $JSON | jq '.weather[0].id')" ~/.local/bin/icons.txt | cut -f4 -d'	')
 		LOCATION_SYMBOL=$(cat ~/.cache/weather/current_symbol)

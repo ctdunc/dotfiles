@@ -1,0 +1,9 @@
+[Unit]
+Description=service to refresh weather values periodically.
+
+[Service]
+ExecStart=/home/connor/.local/bin/get-weather.sh
+EnvironmentFile=/home/connor/.config/systemd/user/.env
+
+[Install]
+WantedBy=default.target
