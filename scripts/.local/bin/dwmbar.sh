@@ -65,7 +65,7 @@ function dwmbar_weather_current {
 SEP1="  "
 while true
 do
-	dispstr="$(dwmbar_weather)"
+	dispstr="$(dwmbar_weather_current)"
 	dispstr="$dispstr$SEP1$(dwmbar_wifi_status)"
 	dispstr="$dispstr$SEP1$(dwmbar_bluetooth_audio)"
 	dispstr="$dispstr$SEP1$(dwmbar_backlight)"
