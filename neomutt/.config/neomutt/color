@@ -1,0 +1,7 @@
+# vim: set filetype=muttrc
+
+color sidebar_background cyan black
+color index red brightwhite '~U'
+
+
+color compose_header cyan default
