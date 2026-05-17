@@ -1,0 +1,6 @@
+require("pack.gruv")
+require("pack.conform")
+require("pack.mini")
+require("pack.nav")
+require("pack.blink")
+require("pack.fugitive")
