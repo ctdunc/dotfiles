@@ -1,3 +1,0 @@
-return {
-  "ctdunc/nvim-dash",
-}
