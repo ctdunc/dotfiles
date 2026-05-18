@@ -14,5 +14,5 @@ alias z="zathura --config-dir=$HOME/.local/config/ --fork > /dev/null"
 alias wslvpn="wsl.exe -d wsl-vpnkit --cd /app service wsl-vpnkit start"
 . "$HOME/.cargo/env"
 
-source /usr/share/nvm/init-nvm.sh
-source ~/.env-extra
+#source /usr/share/nvm/init-nvm.sh
+#source ~/.env-extra
