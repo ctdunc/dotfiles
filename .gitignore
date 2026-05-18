@@ -11,3 +11,4 @@ programs/slock/slock
 gtk-gruv/
 no-track/
 
+systemd/.config/systemd/user/default.target.wants/snap.snapd-desktop-integration.snapd-desktop-integration.service
