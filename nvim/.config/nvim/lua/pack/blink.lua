@@ -11,6 +11,15 @@ vim.pack.add({
 local cmp = require("blink.cmp")
 cmp.build():wait(60000)
 cmp.setup({
-  sources = { default = { "lsp", "path", "snippets", "buffer" } },
+  sources = {
+    default = { "lsp", "path", "snippets", "buffer", "dadbod" },
+    providers = {
+      dadbod = {
+        name = "Dadbod",
+        module = "vim_dadbod_completion.blink",
+        score_offset = 100,
+      },
+    },
+  },
   fuzzy = { implementation = "prefer_rust" },
 })

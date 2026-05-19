@@ -1,3 +1,4 @@
+vim.opt.exrc = true
 -- use four spaces for tabs as God intended.
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
