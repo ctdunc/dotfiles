@@ -1,0 +1,10 @@
+[Unit]
+Description=Gets the mail
+
+[Timer]
+OnActiveSec=0
+OnUnitActiveSec=5m
+AccuracySec=1s
+
+[Install]
+WantedBy=timers.target

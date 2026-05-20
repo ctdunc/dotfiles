@@ -2,7 +2,13 @@ function dwmbar_date {
 	DATE=$(date "+%R %Z %D")
 	printf "%s\n" "$DATE"
 }
-
+function dwmbar_mail {
+	NEW=$(ls ~/.mail/mailbox/Inbox/new)
+	if ! [ -z $NEW ]; then
+		N_NEW=$(echo $NEW | wc -l)
+		printf "%s \n" "$N_NEW"
+	fi
+}
 function dwmbar_battery {
 	CHARGE=$(cat /sys/class/power_supply/BAT1/capacity)
 	STATUS=$(cat /sys/class/power_supply/BAT1/status)
@@ -65,7 +71,8 @@ function dwmbar_weather_current {
 SEP1="  "
 while true
 do
-	dispstr="$(dwmbar_weather_current)"
+	dispstr="$(dwmbar_mail)"
+	dispstr="$dispstr$SEP1$(dwmbar_weather_current)"
 	dispstr="$dispstr$SEP1$(dwmbar_wifi_status)"
 	dispstr="$dispstr$SEP1$(dwmbar_bluetooth_audio)"
 	dispstr="$dispstr$SEP1$(dwmbar_backlight)"

@@ -1,0 +1,9 @@
+[Unit]
+Description=Fetch and Deliver the mail
+RefuseManualStart=no
+
+[Service]
+Type=oneshot
+ExecCondition=/usr/bin/systemctl --system is-active --quiet netctl-auto@wlp4s0.service
+Environment=DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus
+ExecStart=/home/connor/.local/bin/mailman
