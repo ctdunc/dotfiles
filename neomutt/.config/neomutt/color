@@ -1,7 +1,10 @@
-# vim: set filetype=muttrc
+# vim: filetype=neomuttrc
 
-color sidebar_background cyan black
-color index red brightwhite '~U'
+color index white black
+color index brightwhite black "~U"
 
+# Define how the date itself should look (Year-Month-Day Hour:Minute)
+set date_format = "%Y-%m-%d %H:%M"
 
-color compose_header cyan default
+# Apply it to your index view using %D for received date
+set index_format = "%Z   %D   %-15.15F   %s"

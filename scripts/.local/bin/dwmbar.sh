@@ -3,11 +3,8 @@ function dwmbar_date {
 	printf "%s\n" "$DATE"
 }
 function dwmbar_mail {
-	NEW=$(ls ~/.mail/mailbox/Inbox/new)
-	if ! [ -z $NEW ]; then
-		N_NEW=$(echo $NEW | wc -l)
-		printf "%s \n" "$N_NEW"
-	fi
+	N_NEW=$(ls ~/.mail/mailbox/Inbox/new | wc -l)
+	printf "%s \n" "$N_NEW"
 }
 function dwmbar_battery {
 	CHARGE=$(cat /sys/class/power_supply/BAT1/capacity)

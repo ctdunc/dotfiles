@@ -56,3 +56,5 @@ bind attach <return> view-mailcap
 
 set pager_index_lines = 10
 set pager_context = 3
+
+
