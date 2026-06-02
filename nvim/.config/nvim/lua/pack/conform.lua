@@ -6,6 +6,13 @@ vim.pack.add({
 })
 require("conform").setup({
   notify_on_error = false,
+  formatters = {
+    topiary_css = {
+      command = "topiary",
+      args = { "fmt", "-l", "css" },
+      stdin = true,
+    },
+  },
   format_on_save = function(bufnr)
     local disable_filetypes = { c = true, cpp = true }
     return {
@@ -17,5 +24,6 @@ require("conform").setup({
     lua = { "stylua" },
     python = { "ruff_format", "ruff_fix" },
     rust = { "rustfmt", lsp_format = "fallback" },
+    css = { "topiary_css" },
   },
 })

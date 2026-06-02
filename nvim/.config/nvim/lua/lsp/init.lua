@@ -1,4 +1,5 @@
 require("lsp.lua_ls")
 require("lsp.ruff")
 require("lsp.ty")
-vim.lsp.enable({ "lua_ls", "ruff", "ty" })
+require("lsp.rust_analyzer")
+vim.lsp.enable({ "lua_ls", "ruff", "ty", "rust_analyzer" })
