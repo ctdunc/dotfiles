@@ -4,7 +4,6 @@ source ~/.config/neomutt/color
 
 set my_name = "Connor Duncan"
 set editor = "nvim"
-set imap_check_subscribed
 
 set sort = threads
 
