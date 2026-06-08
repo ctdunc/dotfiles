@@ -2,9 +2,9 @@
 Description=Gets the mail
 
 [Timer]
-OnActiveSec=0
+OnStartupSec=2m
 OnUnitActiveSec=5m
-AccuracySec=1s
+WakeSystem=true
 
 [Install]
 WantedBy=timers.target
