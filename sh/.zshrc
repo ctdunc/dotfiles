@@ -32,6 +32,6 @@ setopt prompt_subst
 zstyle ':vcs_info:*' enable git 
 zstyle ':vcs_info:*' unstagedstr '[%F{red}%Bx%b%f]'
 zstyle ':vcs_info:*' check-for-changes true
-zstyle ':vcs_info:*' formats '%B%F{blue}%r/%b%f%%b%u %S'
-PROMPT='%F{green}%n%f@%F{yellow}%M%f ${vcs_info_msg_0_:-%~} %# '
+zstyle ':vcs_info:*' formats '∈%B%F{blue}%r/%b%f%%b%u %S'
+PROMPT='%F{green}%n%f@%F{yellow}%M%f${vcs_info_msg_0_:- %~} %# '
 RPROMPT='[%*]'
