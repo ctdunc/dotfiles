@@ -2,7 +2,7 @@
 # Programmatic exports
 export PYTHONSTARTUP=$HOME/.local/config/sh/pythonrc.py
 export HTOPRC=$HOME/.local/config/htop/htoprc
-
+export EDITOR="nvim"
 export TERM="xterm-256color"
 export PATH=$PATH:~/.local/bin:/usr/lib/emscripten:~/.cargo/bin:/opt/mssql-tools18/bin
 alias vim='nvim'

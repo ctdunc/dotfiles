@@ -1,4 +1,4 @@
 require("pack")
-require("lsp")
 require("key")
+require("lsp")
 require("opt")
