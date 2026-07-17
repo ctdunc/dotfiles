@@ -15,5 +15,10 @@ alias clanker="claude"
 alias wslvpn="wsl.exe -d wsl-vpnkit --cd /app service wsl-vpnkit start"
 . "$HOME/.cargo/env"
 
-#source /usr/share/nvm/init-nvm.sh
+
+export NVM_DIR="$HOME/.nvm"
+nvm() { unset -f nvm node npm npx; . "$NVM_DIR/nvm.sh"; nvm "$@"; }
+node() { unset -f nvm node npm npx; . "$NVM_DIR/nvm.sh"; node "$@"; }
+npm() { unset -f nvm node npm npx; . "$NVM_DIR/nvm.sh"; npm "$@"; }
+npx() { unset -f nvm node npm npx; . "$NVM_DIR/nvm.sh"; npx "$@"; }
 #source ~/.env-extra

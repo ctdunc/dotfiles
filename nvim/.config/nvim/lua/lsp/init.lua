@@ -1,7 +1,8 @@
 require("lsp.ruff")
 require("lsp.ty")
 require("lsp.rust_analyzer")
-vim.lsp.enable({ "lua_ls", "ruff", "ty", "rust_analyzer" })
+require("lsp.javascript")
+vim.lsp.enable({ "lua_ls", "ruff", "ty", "rust_analyzer", "ts_ls" })
 
 vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(args)
@@ -10,7 +11,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
       local win = vim.api.nvim_get_current_win()
       vim.wo[win][0].foldmethod = "expr"
       vim.wo[win][0].foldexpr = "v:lua.vim.lsp.foldexpr()"
-      vim.wo[win][0].foldlevel = 99
     end
   end,
 })
